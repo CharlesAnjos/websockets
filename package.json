@@ -2,11 +2,11 @@
   "name": "websockets",
   "version": "1.0.0",
   "description": "app de websockets para a aula de sistemas distribuidos do prof. manoel campos",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Charles Anjos (charles.ccomp@gmail.com)",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
