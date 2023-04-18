@@ -10,9 +10,23 @@ $(() => {
         return false
     })
 
+    let lastTime = new Date().getTime()
 
-    $("#texto").keydown(()=>socket.emit('status',`${socket.id} está digitando`))
-    $("#texto").keyup(() => setTimeout(() => socket.emit('status',""), 2000))
+    $("#texto").keydown(()=>{
+        const interval = new Date().getTime() - lastTime
+        if(interval > 800){
+            socket.emit('status',`${socket.id} está digitando`)
+            lastTime = Date().getTime()
+        }
+    })
+
+    $("#texto").keyup(() => {
+        const interval = new Date().getTime() - lastTime
+        if(interval > 800){
+            socket.emit('status',"")
+            lastTime = Date().getTime()
+        }
+    })
 
     socket.on('message',(texto) => {
         $("#mensagens").append($("<li>").text(texto))
@@ -20,5 +34,9 @@ $(() => {
 
     socket.on('status',(texto) => {
         $("#status").html(texto)
+    })
+
+    socket.on('login',(login) => {
+        socket.login = login
     })
 })

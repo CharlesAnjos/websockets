@@ -16,8 +16,12 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"))
 serverSocket.on('connection', (socket) => {
     console.log(`Cliente ${socket.id} conectou`)
 
+    socket.on('login', (login) => {
+        var mensagem = `${socket.id} escolheu um nome: ${socket.login}`
+        serverSocket.emit("message", mensagem)
+    })
+
     socket.on('message', (texto) => {
-        //$("#mensagens").val(`${socket.id} diz: ${texto}`)
         console.log(`${socket.id} diz: ${texto}`)
         var mensagem = `${socket.id} diz: ${texto}`
         serverSocket.emit("message", mensagem)
