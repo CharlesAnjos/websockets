@@ -24,10 +24,6 @@ serverSocket.on('connection', (socket) => {
     })
 
     socket.on('status', (status) => {
-        var statusText = `${socket.id} está digitando`
-        if(status) {
-            console.log(statusText)
-            serverSocket.emit("status", statusText)
-        }
+        socket.broadcast.emit("status", status)
     })
 })

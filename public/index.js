@@ -1,5 +1,6 @@
 // document.onload = () => {}
 $(() => {
+    var digitando = []
     const socket = io()
     console.log("Conectado ao servidor")
 
@@ -10,16 +11,14 @@ $(() => {
     })
 
 
-    $("#texto").keydown(()=>{
-        socket.emit('status',true)
-    })
-
-
-    $("#texto").keyup(()=>{
-        socket.emit('status',false)
-    })
+    $("#texto").keydown(()=>socket.emit('status',`${socket.id} está digitando`))
+    $("#texto").keyup(() => setTimeout(() => socket.emit('status',""), 2000))
 
     socket.on('message',(texto) => {
         $("#mensagens").append($("<li>").text(texto))
+    })
+
+    socket.on('status',(texto) => {
+        $("#status").html(texto)
     })
 })
