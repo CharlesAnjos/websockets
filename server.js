@@ -8,7 +8,7 @@ const http = require("http").createServer(app)
 //const serverSocket = newServer()
 const serverSocket = require("socket.io")(http)
 
-const PORT = 6969
+const PORT = process.env.PORT || 6969
 http.listen(PORT, () => console.log(`Servidor iniciado na porta ${PORT}`))
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"))
